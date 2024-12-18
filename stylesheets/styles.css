@@ -1,8 +1,11 @@
 /* General Reset */
-body, html {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body, html {
     height: 100%;
     font-family: Arial, sans-serif;
 }
@@ -13,7 +16,6 @@ body, html {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional drop shadow */
 }
 
-/* Navbar Brand Image */
 .navbar-brand img {
     width: 5rem;
     height: auto;
@@ -52,11 +54,11 @@ body, html {
     min-height: 100vh;
     text-align: center;
     color: #ffffff;
+    padding: 5rem 1rem;
 }
 
-/* Hero Typography */
 .hero-section h1 {
-    font-size: 3rem;
+    font-size: 4rem; /* Larger font for hero heading */
     font-weight: bold;
     color: #ffffff;
 }
@@ -114,6 +116,12 @@ body, html {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.icon-square:hover {
+    background-color: #00bfff; /* Cyan hover for icons */
+    transform: scale(1.1);
 }
 
 /* "How It Works" Section */
@@ -140,6 +148,7 @@ body, html {
     color: #ffffff;
     border: none;
     padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .card-body .btn-group button:hover {
@@ -150,6 +159,94 @@ body, html {
 footer {
     background-color: #010101; /* Dark footer */
     color: #ffffff;
-    padding: 2rem 0;
+    padding: 3rem 1rem;
     text-align: center;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3); /* Optional shadow for footer */
+}
+
+.custom-thick-hr {
+    height: 5px; /* Adjust thickness */
+    border: none; /* Remove default border */
+    background-color: currentColor; /* Use current text color */
+}
+
+.social-icon {
+    transition: transform 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+    color: #ff7f50; /* Use coral color for hover effect */
+}
+
+footer .social-links {
+    margin-top: 1rem;
+}
+
+/* Featurette Images */
+.featurette-image {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featurette-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hr {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border: none;
+    border-top: 3px solid #fff;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom-thick-hr {
+    height: 4px;
+    background-color: #fff;
+}
+
+.featurette-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.text-info {
+    color: #6c757d !important;  /* Light gray color for info text */
+}
+
+.lead {
+    font-size: 1.2rem;
+}
+
+/* Container adjustments */
+.container {
+    max-width: 1200px;
+}
+
+/* General Spacing Adjustments */
+.row {
+    margin-bottom: 3rem;
+}
+
+h1, h2 {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem; /* Smaller text for mobile */
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 1rem; /* Adjust navbar link size for smaller screens */
+    }
 }
