@@ -250,3 +250,22 @@ h1, h2 {
         font-size: 1rem; /* Adjust navbar link size for smaller screens */
     }
 }
+.iti {
+    width: 100%;
+}
+
+.iti__flag-container {
+    z-index: 1;  /* Ensure flag icon is above the input field */
+}
+
+.iti__selected-flag {
+    padding-right: 10px;  /* Space between flag and phone number */
+}
+
+.intl-tel-input .form-control {
+    padding-left: 40px;  /* Ensure the text starts after the flag */
+}
+
+.iti__input {
+    padding-left: 40px !important; /* Adjust input padding to account for the flag */
+}
