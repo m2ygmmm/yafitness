@@ -54,19 +54,27 @@ body, html {
     min-height: 100vh;
     text-align: center;
     color: #ffffff;
-    padding: 5rem 1rem;
+    padding: 3rem 1rem;  /* Reduce padding if necessary */
 }
 
-.hero-section h1 {
-    font-size: 4rem; /* Larger font for hero heading */
+.hero-section h1 .highlighted-word {
+    font-size: 6rem;  /* Make 'Impossible' larger */
     font-weight: bold;
-    color: #ffffff;
+    color: #b63000;  /* You can change the color if you prefer */
+    margin-bottom: 0.5rem;  /* Reduce the space below the word */
+}
+
+.hero-section h2 {
+    margin-top: 0.5rem;  /* Reduce the space above 'with Yoseph Alabdi' */
+}
+
+.hero-section h1, .hero-section h2 {
+    margin-bottom: 0.5rem;  /* Reduce space between headings */
 }
 
 .hero-section p {
     font-size: 1.25rem;
-    margin-bottom: 2rem;
-    color: #ddd; /* Light gray text for readability */
+    margin-bottom: 1.5rem;  /* Adjust space between paragraph and other elements */
 }
 
 /* Buttons */
@@ -249,6 +257,18 @@ h1, h2 {
     .navbar-nav .nav-link {
         font-size: 1rem; /* Adjust navbar link size for smaller screens */
     }
+    .hero-section h1 .highlighted-word {
+        font-size: 4rem;  /* Smaller font size for 'Impossible' on mobile devices */
+    }
+
+    .hero-section h2 {
+        font-size: 1.5rem;  /* Adjust the font size of the secondary heading for mobile */
+    }
+
+    .hero-section p {
+        font-size: 1rem;  /* Adjust the font size of the paragraph for mobile */
+    }
+
 }
 .iti {
     width: 100%;

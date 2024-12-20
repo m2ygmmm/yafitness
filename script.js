@@ -9,6 +9,7 @@ $(document).ready(function () {
 
     let index = 0;
     const answers = [];
+    let buttonClass = "";
 
     function questionnaireLoop(index) {
         const keys = Object.keys(questionnaire);
@@ -35,8 +36,8 @@ $(document).ready(function () {
 
         // Add options as buttons
         options.forEach(option => {
-            // Check if the option was already selected and add the class to mark it
-            const buttonClass = answers[index] === option ? 'btn-primary' : 'btn-secondary';
+            // Check if the option matches the current answer at this index and set button color accordingly
+            buttonClass = answers[index] === option ? 'btn-primary' : 'btn-danger';
             $('#questionnaireDiv').append(`<button type="button" class="btn ${buttonClass} p-2 mx-2" data-id="${option}">${option}</button>`);
         });
 
@@ -52,18 +53,18 @@ $(document).ready(function () {
     $('#questionnaireDiv').on('click', 'button', function () {
         const selectedOption = $(this).data('id');
         answers[index] = selectedOption; // Store the answer at the current index
-
+        console.log('Updated answers:', answers); // Log after update
+    
         // Move to the next question
         index++;
         questionnaireLoop(index);
-        
     });
 
     // Handle back button click
     $('#backButton').on('click', function () {
         if (index > 0) {
             index--; // Move to the previous question
-            answers.pop(); // Remove the last selected answer
+            // No need to pop from answers, as the array already holds the answers for previous questions
             questionnaireLoop(index);
         }
     });
