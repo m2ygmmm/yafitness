@@ -7,7 +7,16 @@
 
 body, html {
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Oswald', sans-serif !important;
+    
+}
+.questionnaireDiv{
+    background-color: #333;
+}
+
+#questionnaireForm {
+    width: 50vw;
+    margin: 0 auto;
 }
 
 /* Navbar */
@@ -58,9 +67,9 @@ body, html {
 }
 
 .hero-section h1 .highlighted-word {
-    font-size: 6rem;  /* Make 'Impossible' larger */
+    font-size: 8vw;  /* Make 'Impossible' larger */
     font-weight: bold;
-    color: #b63000;  /* You can change the color if you prefer */
+    color: #ff4500;  /* You can change the color if you prefer */
     margin-bottom: 0.5rem;  /* Reduce the space below the word */
 }
 
@@ -258,7 +267,7 @@ h1, h2 {
         font-size: 1rem; /* Adjust navbar link size for smaller screens */
     }
     .hero-section h1 .highlighted-word {
-        font-size: 4rem;  /* Smaller font size for 'Impossible' on mobile devices */
+        font-size: 14vw;  /* Smaller font size for 'Impossible' on mobile devices */
     }
 
     .hero-section h2 {
@@ -267,6 +276,10 @@ h1, h2 {
 
     .hero-section p {
         font-size: 1rem;  /* Adjust the font size of the paragraph for mobile */
+    }
+    #questionnaireForm {
+        width: 100%;
+        padding: 0 15px; /* Add padding for better appearance on smaller screens */
     }
 
 }

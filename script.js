@@ -4,12 +4,20 @@ $(document).ready(function () {
         "What is your primary fitness goal?": ["Weight loss", "Build muscle", "Healthy lifestyle"],
         "How old are you?": ["Under 18", "18-24", "25-30", "31+"],
         "What is your gender?": ["Male", "Female"],
-        "Are you willing to invest financially into your health and wellness?": ["Yes", "No"],
     };
 
     let index = 0;
     const answers = [];
     let buttonClass = "";
+
+    function updateProgressBar(index) {
+        const totalQuestions = Object.keys(questionnaire).length;
+        const progress = ((index / totalQuestions) * 75).toFixed(0);
+        $('#progressBar')
+            .css('width', `${progress}%`)
+            .attr('aria-valuenow', progress)
+            .text(`${progress}%`);
+    }
 
     function questionnaireLoop(index) {
         const keys = Object.keys(questionnaire);
@@ -17,12 +25,13 @@ $(document).ready(function () {
 
         // Check if we have reached the end of the questionnaire
         if (!questionText) {
-            $('#questionText').hide();
+            $('#questionText').text('Great! Please complete the form below');
             $('#questionnaireForm').show();
 
             console.log("Answers so far:", answers);
             $('#questionnaireDiv').empty();
             $('#backButton').hide(); // Hide the back button at the end
+            updateProgressBar(index); // Update progress to 100% at the end
             return;
         }
 
@@ -37,8 +46,8 @@ $(document).ready(function () {
         // Add options as buttons
         options.forEach(option => {
             // Check if the option matches the current answer at this index and set button color accordingly
-            buttonClass = answers[index] === option ? 'btn-primary' : 'btn-danger';
-            $('#questionnaireDiv').append(`<button type="button" class="btn ${buttonClass} p-2 mx-2" data-id="${option}">${option}</button>`);
+            buttonClass = answers[index] === option ? 'btn-outline-success' : 'btn-outline-light';
+            $('#questionnaireDiv').append(`<button type="button" class="btn ${buttonClass} p-2 mx-2 shadow text-light" data-id="${option}">${option}</button>`);
         });
 
         // Show the back button only if the user is not on the first question
@@ -47,6 +56,9 @@ $(document).ready(function () {
         } else {
             $('#backButton').hide();
         }
+
+        // Update progress bar
+        updateProgressBar(index);
     }
 
     // Handle button click using event delegation
@@ -71,4 +83,4 @@ $(document).ready(function () {
 
     // Initialize with the first question
     questionnaireLoop(index);
-});
+  });
