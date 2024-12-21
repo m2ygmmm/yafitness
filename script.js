@@ -124,6 +124,8 @@ $(document).ready(function () {
                 .attr('class', 'alert alert-danger p-2 mx-4')
                 .text('Error! Please try again')
                 .show();
+                $('#spinnerDiv').hide();
+
             }
         });
     });
