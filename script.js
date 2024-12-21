@@ -12,9 +12,8 @@ $(document).ready(function () {
 
     function updateProgressBar(index) {
         const totalQuestions = Object.keys(questionnaire).length;
-        const progress = ((index / totalQuestions) * 75).toFixed(0); // Adjust max percentage to 75%
+        const progress = ((index / totalQuestions) * 75).toFixed(0);
 
-        // Only show the progress bar if there is at least one answer
         if (answers.length > 0) {
             $('#progressBar')
                 .css('width', `${progress}%`)
@@ -31,64 +30,88 @@ $(document).ready(function () {
         const keys = Object.keys(questionnaire);
         const questionText = keys[index];
 
-        // Check if we have reached the end of the questionnaire
         if (!questionText) {
             $('#questionText').text('Great! Please complete the form below');
             $('#questionnaireForm').show();
             console.log("Answers so far:", answers);
             $('#questionnaireDiv').empty();
-            updateProgressBar(Object.keys(questionnaire).length); // Set progress to 100% at the end
+            updateProgressBar(Object.keys(questionnaire).length); 
             return;
         }
 
         const options = questionnaire[questionText];
 
-        // Update the question text
         $('#questionText').text(questionText);
-
-        // Clear previous options
         $('#questionnaireDiv').empty();
 
-        // Add options as buttons
         options.forEach(option => {
-            // Check if the option matches the current answer at this index and set button color accordingly
             buttonClass = answers[index] === option ? 'btn-outline-success' : 'btn-outline-light';
             $('#questionnaireDiv').append(`<button type="button" class="btn ${buttonClass} p-2 mx-2 shadow text-light" data-id="${option}">${option}</button>`);
         });
 
-        // Show the back button only if the user is not on the first question
         if (index > 0) {
             $('#backButton').show();
         } else {
             $('#backButton').hide();
         }
 
-        // Update progress bar
         updateProgressBar(index);
     }
 
-    // Handle button click using event delegation
     $('#questionnaireDiv').on('click', 'button', function () {
         const selectedOption = $(this).data('id');
-        answers[index] = selectedOption; // Store the answer at the current index
-        console.log('Updated answers:', answers); // Log after update
+        answers[index] = selectedOption;
+        console.log('Updated answers:', answers);
 
-        // Move to the next question
         index++;
         questionnaireLoop(index);
     });
 
-    // Handle back button click
     $('#backButton').on('click', function () {
         if (index > 0) {
-            index--; // Move to the previous question
-            // No need to pop from answers, as the array already holds the answers for previous questions
+            index--;
             questionnaireLoop(index);
             $('#questionnaireForm').hide();
         }
     });
 
-    // Initialize the progress bar and questionnaire
-    updateProgressBar(0); // Ensure progress bar starts at 0%
+    // Submit form and send data via AJAX
+    $('#questionnaireForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const resultsTime = $('#resultsTime').val();
+        const journeyReason = $('#journeyReason').val();
+        const firstName = $('#firstName').val();
+        const lastName = $('#lastName').val();
+        const phoneNumber = $('#phoneNumber').val();
+        const email = $('#email').val();
+        const instagramHandle = $('#instagramHandle').val();
+
+        const formData = {
+            resultsTime: resultsTime,
+            journeyReason: journeyReason,
+            firstName: firstName,
+            lastName: lastName,
+            phoneNumber: phoneNumber,
+            email: email,
+            instagramHandle: instagramHandle,
+            answers: answers // Adding the answers array
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'submit_form.php', // PHP script to handle the form submission
+            data: formData,
+            success: function (response) {
+                alert('Form submitted successfully!');
+                console.log(response);
+            },
+            error: function () {
+                alert('Error submitting the form');
+            }
+        });
+    });
+
+    updateProgressBar(0);
     questionnaireLoop(index);
 });
