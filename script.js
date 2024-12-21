@@ -12,11 +12,19 @@ $(document).ready(function () {
 
     function updateProgressBar(index) {
         const totalQuestions = Object.keys(questionnaire).length;
-        const progress = ((index / totalQuestions) * 75).toFixed(0);
-        $('#progressBar')
-            .css('width', `${progress}%`)
-            .attr('aria-valuenow', progress)
-            .text(`${progress}%`);
+        const progress = ((index / totalQuestions) * 75).toFixed(0); // Adjust max percentage to 75%
+
+        // Only show the progress bar if there is at least one answer
+        if (answers.length > 0) {
+            $('#progressBar')
+                .css('width', `${progress}%`)
+                .attr('aria-valuenow', progress)
+                .text(`${progress}%`)
+                .show(); // Show the progress bar
+                $('#progressBarDiv').show();
+        } else {
+            $('#progressBarDiv').hide(); // Hide the progress bar if no answers
+        }
     }
 
     function questionnaireLoop(index) {
@@ -27,11 +35,9 @@ $(document).ready(function () {
         if (!questionText) {
             $('#questionText').text('Great! Please complete the form below');
             $('#questionnaireForm').show();
-
             console.log("Answers so far:", answers);
             $('#questionnaireDiv').empty();
-            $('#backButton').hide(); // Hide the back button at the end
-            updateProgressBar(index); // Update progress to 100% at the end
+            updateProgressBar(Object.keys(questionnaire).length); // Set progress to 100% at the end
             return;
         }
 
@@ -66,7 +72,7 @@ $(document).ready(function () {
         const selectedOption = $(this).data('id');
         answers[index] = selectedOption; // Store the answer at the current index
         console.log('Updated answers:', answers); // Log after update
-    
+
         // Move to the next question
         index++;
         questionnaireLoop(index);
@@ -78,9 +84,11 @@ $(document).ready(function () {
             index--; // Move to the previous question
             // No need to pop from answers, as the array already holds the answers for previous questions
             questionnaireLoop(index);
+            $('#questionnaireForm').hide();
         }
     });
 
-    // Initialize with the first question
+    // Initialize the progress bar and questionnaire
+    updateProgressBar(0); // Ensure progress bar starts at 0%
     questionnaireLoop(index);
-  });
+});
