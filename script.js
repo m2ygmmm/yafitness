@@ -1,5 +1,7 @@
 $(document).ready(function () {
     $('#questionnaireForm').hide();
+    $('#spinnerDiv').hide();
+    $('#alertBox').hide();
     const questionnaire = {
         "What is your primary fitness goal?": ["Weight loss", "Build muscle", "Healthy lifestyle"],
         "How old are you?": ["Under 18", "18-24", "25-30", "31+"],
@@ -98,16 +100,30 @@ $(document).ready(function () {
             answers: answers // Adding the answers array
         };
 
+        $('#questionnaireForm').hide();
+        $('#spinnerDiv').show();
+        $('#progressBar')
+                .css('width', `100%`)
+                .text(`100%`)
+                $('#progressBarDiv').show();
+
         $.ajax({
             type: 'POST',
             url: 'submit_form.php', // PHP script to handle the form submission
             data: formData,
             success: function (response) {
-                alert('Form submitted successfully!');
+                $('#alertBox')
+                .attr('class', 'alert alert-success p-2 mx-4')
+                .text('Thanks, One of our team members will be in touch with you shortly to assist you further.')
+                .show();
                 console.log(response);
+                $('#spinnerDiv').hide();
             },
             error: function () {
-                alert('Error submitting the form');
+                $('#alertBox')
+                .attr('class', 'alert alert-danger p-2 mx-4')
+                .text('Error! Please try again')
+                .show();
             }
         });
     });
