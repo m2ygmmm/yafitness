@@ -81,7 +81,6 @@ $(document).ready(function () {
     $('#questionnaireForm').on('submit', function (e) {
         e.preventDefault();
 
-        const resultsTime = $('#resultsTime').val();
         const journeyReason = $('#journeyReason').val();
         const firstName = $('#firstName').val();
         const lastName = $('#lastName').val();
@@ -103,31 +102,26 @@ $(document).ready(function () {
         $('#questionnaireForm').hide();
         $('#spinnerDiv').show();
         $('#progressBar')
-                .css('width', `100%`)
-                .text(`100%`)
-                $('#progressBarDiv').show();
+            .css('width', `100%`)
+            .text(`100%`)
+            $('#progressBarDiv').show();
 
-        $.ajax({
-            type: 'POST',
-            url: 'submit_form.php', // PHP script to handle the form submission
-            data: formData,
-            success: function (response) {
+        emailjs.send("service_ldtgx25", "template_6v72o8e", formData)
+            .then(function (response) {
                 $('#alertBox')
-                .attr('class', 'alert alert-success p-2 mx-4')
-                .text('Thanks, One of our team members will be in touch with you shortly to assist you further.')
-                .show();
-                console.log(response);
+                    .attr('class', 'alert alert-success p-2 mx-4')
+                    .text('Thanks, One of our team members will be in touch with you shortly to assist you further.')
+                    .show();
+                console.log('SUCCESS!', response.status, response.text);
                 $('#spinnerDiv').hide();
-            },
-            error: function () {
+            }, function (error) {
                 $('#alertBox')
-                .attr('class', 'alert alert-danger p-2 mx-4')
-                .text('Error! Please try again')
-                .show();
+                    .attr('class', 'alert alert-danger p-2 mx-4')
+                    .text('Error! Please try again')
+                    .show();
+                console.log('FAILED...', error);
                 $('#spinnerDiv').hide();
-
-            }
-        });
+            });
     });
 
     updateProgressBar(0);
