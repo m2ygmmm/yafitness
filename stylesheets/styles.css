@@ -69,7 +69,6 @@ body, html {
 .hero-section h1 .highlighted-word {
     font-size: 8vw;  /* Make 'Impossible' larger */
     font-weight: bold;
-    color: #ff4500;  /* You can change the color if you prefer */
     margin-bottom: 0.5rem;  /* Reduce the space below the word */
 }
 
