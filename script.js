@@ -63,8 +63,6 @@ $(document).ready(function () {
     $('#questionnaireDiv').on('click', 'button', function () {
         const selectedOption = $(this).data('id');
         answers[index] = selectedOption;
-        console.log('Updated answers:', answers);
-
         index++;
         questionnaireLoop(index);
     });
@@ -80,49 +78,55 @@ $(document).ready(function () {
     // Submit form and send data via AJAX
     $('#questionnaireForm').on('submit', function (e) {
         e.preventDefault();
-
+    
         const journeyReason = $('#journeyReason').val();
         const firstName = $('#firstName').val();
         const lastName = $('#lastName').val();
         const phoneNumber = $('#phoneNumber').val();
         const email = $('#email').val();
         const instagramHandle = $('#instagramHandle').val();
-
+    
+        const formattedAnswers = answers
+            .map((answer, index) => `Question ${index + 1}: ${answer} / `)
+            .join("");
+        const formattedAnswersList = `${formattedAnswers}`;
+    
         const formData = {
-            resultsTime: resultsTime,
             journeyReason: journeyReason,
             firstName: firstName,
             lastName: lastName,
             phoneNumber: phoneNumber,
             email: email,
             instagramHandle: instagramHandle,
-            answers: answers // Adding the answers array
+            answers: formattedAnswersList // Use the formatted answers
         };
-
+    
         $('#questionnaireForm').hide();
         $('#spinnerDiv').show();
         $('#progressBar')
             .css('width', `100%`)
-            .text(`100%`)
-            $('#progressBarDiv').show();
-
+            .text(`100%`);
+        $('#progressBarDiv').show();
+    
         emailjs.send("service_ldtgx25", "template_6v72o8e", formData)
             .then(function (response) {
                 $('#alertBox')
                     .attr('class', 'alert alert-success p-2 mx-4')
                     .text('Thanks, One of our team members will be in touch with you shortly to assist you further.')
                     .show();
-                console.log('SUCCESS!', response.status, response.text);
+                setTimeout(() => {
+                    location.reload();
+                }, 5000);
                 $('#spinnerDiv').hide();
             }, function (error) {
                 $('#alertBox')
                     .attr('class', 'alert alert-danger p-2 mx-4')
                     .text('Error! Please try again')
                     .show();
-                console.log('FAILED...', error);
                 $('#spinnerDiv').hide();
             });
     });
+    
 
     updateProgressBar(0);
     questionnaireLoop(index);
