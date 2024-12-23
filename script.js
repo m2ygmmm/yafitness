@@ -35,7 +35,6 @@ $(document).ready(function () {
         if (!questionText) {
             $('#questionText').text('Great! Please complete the form below');
             $('#questionnaireForm').show();
-            console.log("Answers so far:", answers);
             $('#questionnaireDiv').empty();
             updateProgressBar(Object.keys(questionnaire).length); 
             return;
