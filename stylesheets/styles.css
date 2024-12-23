@@ -204,6 +204,8 @@ footer .social-links {
 /* Featurette Images */
 .featurette-image {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 75%;
+    height: auto;
 }
 
 .featurette-image:hover {
